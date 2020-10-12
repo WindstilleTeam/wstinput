@@ -170,6 +170,117 @@ Controller::set_ball_state(int id, float pos)
   m_states[id].ball = pos;
 }
 
+void
+Controller::add_ball_event(int name, float pos)
+{
+  InputEvent event;
+
+  event.type = BALL_EVENT;
+  event.axis.name = name;
+  event.axis.pos  = pos;
+
+  add_event(event);
+  set_ball_state(name, pos);
+}
+
+void
+Controller::add_button_event(int name, bool down)
+{
+  InputEvent event;
+
+  event.type = BUTTON_EVENT;
+  event.button.name = name;
+  event.button.down = down;
+
+  add_event(event);
+  set_button_state(name, down);
+}
+
+void
+Controller::add_keyboard_event(int , KeyboardEvent::KeyType key_type, int code)
+{
+  InputEvent event;
+
+  event.type = KEYBOARD_EVENT;
+  event.keyboard.key_type = key_type;
+  event.keyboard.code     = code;
+
+  add_event(event);
+}
+
+void
+Controller::add_axis_event(int name, float pos)
+{
+#if 0
+  // FIXME: reimplement this in some generic fashion
+
+  // Convert analog axis events into digital menu movements
+  // FIXME: add key repeat
+  float click_threshold = 0.5f;
+  float release_threshold = 0.3f;
+
+  // FIXME: need state info
+  float old_pos = m_controller.get_axis_state(name);
+  if (name == X_AXIS)
+  {
+    if (m_controller.get_button_state(MENU_LEFT_BUTTON) == 0 &&
+        pos < -click_threshold && old_pos > -click_threshold)
+    {
+      add_button_event(MENU_LEFT_BUTTON, 1);
+    }
+    else if (m_controller.get_button_state(MENU_LEFT_BUTTON) == 1 &&
+             old_pos < -release_threshold && pos > -release_threshold)
+    {
+      add_button_event(MENU_LEFT_BUTTON, 0);
+    }
+
+    else if (m_controller.get_button_state(MENU_RIGHT_BUTTON) == 0 &&
+             pos > click_threshold && old_pos < click_threshold)
+    {
+      add_button_event(MENU_RIGHT_BUTTON, 1);
+    }
+    else  if (m_controller.get_button_state(MENU_RIGHT_BUTTON) == 1 &&
+              old_pos > release_threshold && pos < release_threshold)
+    {
+      add_button_event(MENU_RIGHT_BUTTON, 0);
+    }
+  }
+  else if (name == Y_AXIS)
+  {
+    if (m_controller.get_button_state(MENU_UP_BUTTON) == 0 &&
+        pos < -click_threshold && old_pos > -click_threshold)
+    {
+      add_button_event(MENU_UP_BUTTON, 1);
+    }
+    else if (m_controller.get_button_state(MENU_UP_BUTTON) == 1 &&
+             old_pos < -release_threshold && pos > -release_threshold)
+    {
+      add_button_event(MENU_UP_BUTTON, 0);
+    }
+
+    else  if (m_controller.get_button_state(MENU_DOWN_BUTTON) == 0 &&
+              pos > click_threshold && old_pos < click_threshold)
+    {
+      add_button_event(MENU_DOWN_BUTTON, 1);
+    }
+    else  if (m_controller.get_button_state(MENU_DOWN_BUTTON) == 1 &&
+              old_pos > release_threshold && pos < release_threshold)
+    {
+      add_button_event(MENU_DOWN_BUTTON, 0);
+    }
+  }
+#endif
+
+  InputEvent event;
+
+  event.type = AXIS_EVENT;
+  event.axis.name = name;
+  event.axis.pos  = pos;
+
+  add_event(event);
+  set_axis_state(name, pos);
+}
+
 } // namespace wstinput
 
 /* EOF */
