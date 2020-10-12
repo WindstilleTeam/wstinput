@@ -26,6 +26,8 @@ include(MaximumWarnings)
 find_package(PkgConfig REQUIRED)
 pkg_search_module(SDL2 REQUIRED sdl2 IMPORTED_TARGET)
 
+find_library(CWIID_LIBRARY cwiid)
+
 # Build dependencies
 function(build_dependencies)
   # set(BUILD_TESTS OFF)
@@ -54,6 +56,11 @@ target_include_directories(wstinput PRIVATE src/ include/wstinput/)
 target_link_libraries(wstinput PUBLIC
   prio
   PkgConfig::SDL2)
+
+if(CWIID_LIBRARY)
+  target_compile_options(wstinput PUBLIC -DHAVE_CWIID)
+  target_link_libraries(wstinput ${CWIID_LIBRARY})
+endif()
 
 install(TARGETS wstinput
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
