@@ -25,8 +25,8 @@
 
 #include <prio/fwd.hpp>
 
-#include "input/controller.hpp"
-#include "input/controller_description.hpp"
+#include "controller.hpp"
+#include "controller_description.hpp"
 
 namespace wstinput {
 

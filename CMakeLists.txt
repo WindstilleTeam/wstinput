@@ -38,7 +38,7 @@ build_dependencies()
 file(GLOB WSTINPUT_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   include/wstinput/*.hpp)
 file(GLOB WSTINPUT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  src/input/*.cpp)
+  src/*.cpp)
 
 add_library(wstinput STATIC ${WSTINPUT_SOURCES})
 set_target_properties(wstinput PROPERTIES PUBLIC_HEADER "${WSTINPUT_HEADERS}")

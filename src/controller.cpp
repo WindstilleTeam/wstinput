@@ -17,7 +17,7 @@
 **  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "input/controller.hpp"
+#include "controller.hpp"
 
 #include <math.h>
 #include <assert.h>

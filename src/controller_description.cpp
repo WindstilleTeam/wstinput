@@ -18,7 +18,7 @@
 
 #include <stdexcept>
 
-#include "input/controller_description.hpp"
+#include "controller_description.hpp"
 
 namespace wstinput {
 
