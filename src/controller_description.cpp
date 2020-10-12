@@ -91,6 +91,16 @@ ControllerDescription::get_definition(const std::string& name) const
   return i->second;
 }
 
+int
+ControllerDescription::get_max_id() const
+{
+  int result = 0;
+  for(auto const& item : id_to_event) {
+    result = std::max(result, item.first);
+  }
+  return result;
+}
+
 } // namespace wstinput
 
 /* EOF */
