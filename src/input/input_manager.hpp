@@ -23,9 +23,10 @@
 #include <filesystem>
 #include <memory>
 
+#include <prio/fwd.hpp>
+
 #include "input/controller.hpp"
 #include "input/controller_description.hpp"
-#include "util/file_reader.hpp"
 
 namespace wstinput {
 
@@ -147,7 +148,7 @@ private:
   /** Ensure that the joystick device \a device is open */
   void ensure_open_joystick(int device);
 
-  void parse_config(ReaderMapping const& reader);
+  void parse_config(prio::ReaderMapping const& reader);
 
 private:
   ControllerDescription m_controller_description;

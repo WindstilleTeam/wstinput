@@ -19,12 +19,14 @@
 #include <iostream>
 #include <sstream>
 
-#include "util/file_reader.hpp"
-#include "util/log.hpp"
+#include <prio/reader.hpp>
+
 #include "input_manager.hpp"
 #ifdef HAVE_CWIID
 #  include "wiimote.hpp"
 #endif
+
+using namespace prio;
 
 namespace wstinput {
 
@@ -512,7 +514,7 @@ InputManagerSDL::bind_mouse_button(int event, int device, int button)
 void
 InputManagerSDL::bind_joystick_hat_axis(int /*event*/, int /*device*/, int /*axis*/)
 {
-  log_error("implement me");
+  std::cerr << "implement me\n";
 }
 
 void
