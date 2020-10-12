@@ -23,7 +23,8 @@ include(GNUInstallDirs)
 include(ClangTidy)
 include(MaximumWarnings)
 
-find_package(SDL2 REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(SDL2 REQUIRED sdl2 IMPORTED_TARGET)
 
 # Build dependencies
 function(build_dependencies)
@@ -52,7 +53,7 @@ target_include_directories(wstinput PUBLIC include/)
 target_include_directories(wstinput PRIVATE src/ include/wstinput/)
 target_link_libraries(wstinput PUBLIC
   prio
-  SDL2::SDL2)
+  PkgConfig::SDL2)
 
 install(TARGETS wstinput
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
