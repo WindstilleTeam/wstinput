@@ -35,12 +35,16 @@ InputManagerSDL::InputManagerSDL(ControllerDescription const& controller_descrip
   m_joysticks(),
   m_keyidmapping()
 {
+  std::cout << "Keyboard keys:";
   for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
     const char* key_name = SDL_GetScancodeName(static_cast<SDL_Scancode>(i));
     m_keyidmapping[key_name] = static_cast<SDL_Scancode>(i);
     // FIXME: Make the keynames somewhere user visible so that users can use them
-    std::cout << "'" << key_name << "'" << std::endl;
+    std::cout << " '" << key_name << "'";
   }
+  std::cout << std::endl;
+
+  stop_text_input();
 
 #ifdef HAVE_CWIID
   // FIXME: doesn't really belong here
@@ -191,6 +195,24 @@ void
 InputManagerSDL::clear()
 {
   m_controller.clear();
+}
+
+void
+InputManagerSDL::start_text_input()
+{
+  SDL_StartTextInput();
+}
+
+void
+InputManagerSDL::stop_text_input()
+{
+  SDL_StopTextInput();
+}
+
+bool
+InputManagerSDL::is_text_input_active() const
+{
+  return SDL_IsTextInputActive();
 }
 
 } // namespace wstinput

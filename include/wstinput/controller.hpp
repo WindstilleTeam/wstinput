@@ -65,7 +65,9 @@ public:
   void add_axis_event(int name, float pos);
   void add_ball_event(int name, float pos);
   void add_button_event(int name, bool down);
-  void add_keyboard_event(int name, KeyboardEvent::KeyType key_type, int code);
+  void add_text_event(int name, std::array<char, 32> const& text);
+  void add_text_edit_event(int , std::array<char, 32> const& text, int start, int length);
+  void add_keyboard_event(SDL_KeyboardEvent const& key);
 
   void clear();
 

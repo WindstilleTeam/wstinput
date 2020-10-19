@@ -301,23 +301,27 @@ InputBindings::dispatch_event(SDL_Event const& event, Controller& controller) co
 {
   switch(event.type)
   {
-    case SDL_TEXTINPUT:
-#if 0
-      if ((event.key.keysym.unicode > 0 && event.key.keysym.unicode < 128)
-          && (isgraph(event.key.keysym.unicode) || event.key.keysym.unicode == ' '))
-      {
-        add_keyboard_event(0, KeyboardEvent::LETTER, event.key.keysym.unicode);
-      }
-      else
-      {
-        add_keyboard_event(0, KeyboardEvent::SPECIAL, event.key.keysym.sym);
-      }
-#endif
+    case SDL_TEXTINPUT: {
+      std::array<char, 32> text;
+      std::copy_n(event.text.text, text.size(), text.begin());
+      controller.add_text_event(0, text);
       break;
+    }
+
+    case SDL_TEXTEDITING: {
+      std::array<char, 32> text;
+      std::copy_n(event.text.text, text.size(), text.begin());
+      controller.add_text_edit_event(0, text, event.edit.start, event.edit.length);
+      break;
+    }
 
     case SDL_KEYUP:
     case SDL_KEYDOWN:
-      dispatch_key_event(event.key, controller);
+      if (m_manager.is_text_input_active()) {
+        controller.add_keyboard_event(event.key);
+      } else {
+        dispatch_key_event(event.key, controller);
+      }
       break;
 
     case SDL_MOUSEMOTION:

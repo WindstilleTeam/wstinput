@@ -17,17 +17,40 @@
 #ifndef HEADER_WINDSTILLE_INPUT_INPUT_EVENT_HPP
 #define HEADER_WINDSTILLE_INPUT_INPUT_EVENT_HPP
 
+#include <array>
 #include <vector>
+
+#include <SDL.h>
 
 namespace wstinput {
 
-enum InputEventType { BUTTON_EVENT, AXIS_EVENT, BALL_EVENT, KEYBOARD_EVENT };
+enum InputEventType
+{
+  BUTTON_EVENT,
+  AXIS_EVENT,
+  BALL_EVENT,
+  TEXT_EVENT,
+  TEXT_EDIT_EVENT,
+  KEYBOARD_EVENT
+};
 
 /** Used for textual input */
+struct TextEvent
+{
+  std::array<char, 32> text;
+};
+
+struct TextEditEvent
+{
+  std::array<char, 32> text;
+  int start;
+  int length;
+};
+
+/** Raw keyboard events, only send when text input is active */
 struct KeyboardEvent
 {
-  enum KeyType { LETTER, SPECIAL } key_type;
-  int code;
+  SDL_KeyboardEvent key;
 };
 
 struct ButtonEvent
@@ -64,10 +87,12 @@ struct InputEvent
 
   union
   {
-    struct ButtonEvent   button;
-    struct AxisEvent     axis;
+    struct ButtonEvent button;
+    struct AxisEvent axis;
+    struct TextEvent text;
+    struct TextEditEvent text_edit;
     struct KeyboardEvent keyboard;
-    struct BallEvent     ball;
+    struct BallEvent ball;
   };
 };
 

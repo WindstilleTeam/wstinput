@@ -197,13 +197,36 @@ Controller::add_button_event(int name, bool down)
 }
 
 void
-Controller::add_keyboard_event(int , KeyboardEvent::KeyType key_type, int code)
+Controller::add_text_event(int , std::array<char, 32> const& text)
+{
+  InputEvent event;
+
+  event.type = TEXT_EVENT;
+  event.text.text = text;
+
+  add_event(event);
+}
+
+void
+Controller::add_text_edit_event(int , std::array<char, 32> const& text, int start, int length)
+{
+  InputEvent event;
+
+  event.type = TEXT_EVENT;
+  event.text_edit.text = text;
+  event.text_edit.start = start;
+  event.text_edit.length = length;
+
+  add_event(event);
+}
+
+void
+Controller::add_keyboard_event(SDL_KeyboardEvent const& key)
 {
   InputEvent event;
 
   event.type = KEYBOARD_EVENT;
-  event.keyboard.key_type = key_type;
-  event.keyboard.code     = code;
+  event.keyboard.key = key;
 
   add_event(event);
 }

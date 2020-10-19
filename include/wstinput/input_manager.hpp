@@ -56,6 +56,10 @@ public:
   /** Ensure that the joystick device \a device is open */
   void ensure_open_joystick(int device);
 
+  void start_text_input();
+  void stop_text_input();
+  bool is_text_input_active() const;
+
 private:
   ControllerDescription m_controller_description;
   Controller m_controller;
