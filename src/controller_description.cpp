@@ -44,6 +44,19 @@ ControllerDescription::add_button(const std::string& name, int id)
 }
 
 void
+ControllerDescription::add_pointer(const std::string& name, int id)
+{
+  InputEventDefinition event;
+
+  event.type = POINTER_EVENT;
+  event.name = name;
+  event.id   = id;
+
+  str_to_event[event.name] = event;
+  id_to_event[event.id]    = event;
+}
+
+void
 ControllerDescription::add_ball(const std::string& name, int id)
 {
   InputEventDefinition event;

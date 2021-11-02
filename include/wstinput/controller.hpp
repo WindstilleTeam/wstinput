@@ -30,10 +30,11 @@ class Controller final
 {
 private:
   union State {
-    enum { BUTTON_STATE, BALL_STATE, AXIS_STATE } type;
+    enum { BUTTON_STATE, BALL_STATE, AXIS_STATE, POINTER_STATE } type;
     bool  button;
     float axis;
     float ball;
+    float pointer;
   };
 
 public:
@@ -43,6 +44,7 @@ public:
   float get_axis_state(int name, bool use_deadzone = true) const;
   bool get_button_state(int name) const;
   float get_ball_state(int name) const;
+  float get_pointer_state(int name) const;
 
   InputEventLst const& get_events() const;
 
@@ -61,9 +63,11 @@ public:
   void set_axis_state(int name, float pos);
   void set_button_state(int name, bool down);
   void set_ball_state(int name, float delta);
+  void set_pointer_state(int name, float pos);
 
   void add_axis_event(int name, float pos);
   void add_ball_event(int name, float pos);
+  void add_pointer_event(int name, float pos);
   void add_button_event(int name, bool down);
   void add_text_event(int name, std::array<char, 32> const& text);
   void add_text_edit_event(int , std::array<char, 32> const& text, int start, int length);

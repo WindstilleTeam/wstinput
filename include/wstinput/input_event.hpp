@@ -29,6 +29,7 @@ enum InputEventType
   BUTTON_EVENT,
   AXIS_EVENT,
   BALL_EVENT,
+  POINTER_EVENT,
   TEXT_EVENT,
   TEXT_EDIT_EVENT,
   KEYBOARD_EVENT
@@ -65,6 +66,13 @@ struct ButtonEvent
 };
 
 struct BallEvent
+{
+  int   name;
+  float pos;
+  float get_pos() const { return pos; }
+};
+
+struct PointerEvent
 {
   int   name;
   float pos;

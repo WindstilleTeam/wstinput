@@ -163,11 +163,27 @@ Controller::get_ball_state(int id) const
   return m_states[id].ball;
 }
 
+float
+Controller::get_pointer_state(int id) const
+{
+  if (m_states.empty()) { return 0.0f; }
+
+  assert(id < int(m_states.size()));
+  return m_states[id].pointer;
+}
+
 void
 Controller::set_ball_state(int id, float pos)
 {
   assert(id < static_cast<int>(m_states.size()));
   m_states[id].ball = pos;
+}
+
+void
+Controller::set_pointer_state(int id, float pos)
+{
+  assert(id < static_cast<int>(m_states.size()));
+  m_states[id].pointer = pos;
 }
 
 void
@@ -181,6 +197,19 @@ Controller::add_ball_event(int name, float pos)
 
   add_event(event);
   set_ball_state(name, pos);
+}
+
+void
+Controller::add_pointer_event(int name, float pos)
+{
+  InputEvent event;
+
+  event.type = POINTER_EVENT;
+  event.axis.name = name;
+  event.axis.pos  = pos;
+
+  add_event(event);
+  set_pointer_state(name, pos);
 }
 
 void

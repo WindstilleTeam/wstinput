@@ -325,19 +325,16 @@ InputBindings::dispatch_event(SDL_Event const& event, Controller& controller) co
       break;
 
     case SDL_MOUSEMOTION:
-      // event.motion
-      // FIXME: Hardcodes 0,1 values are not a good idea, need to bind the stuff like the rest
-      if ((false)) std::cout << "mouse: " << event.motion.xrel << " " << event.motion.yrel << std::endl;
-      controller.add_ball_event(0, static_cast<float>(event.motion.xrel));
-      controller.add_ball_event(1, static_cast<float>(event.motion.yrel));
+      dispatch_mouse_motion_event(event.motion, controller);
       break;
 
     case SDL_MOUSEBUTTONDOWN:
+    case SDL_MOUSEBUTTONUP:
       dispatch_mouse_button_event(event.button, controller);
       break;
 
-    case SDL_MOUSEBUTTONUP:
-      dispatch_mouse_button_event(event.button, controller);
+    case SDL_MOUSEWHEEL:
+      dispatch_mouse_wheel_event(event.wheel, controller);
       break;
 
     case SDL_JOYAXISMOTION:
@@ -416,6 +413,25 @@ InputBindings::dispatch_mouse_button_event(const SDL_MouseButtonEvent& button, C
       controller.add_button_event(i->event, button.state);
     }
   }
+}
+
+void
+InputBindings::dispatch_mouse_motion_event(SDL_MouseMotionEvent const& motion, Controller& controller) const
+{
+  // FIXME: Hardcodes 0,1 values are not a good idea, need to bind the stuff like the rest
+  if ((false)) std::cout << "mouse: " << motion.xrel << " " << motion.yrel << std::endl;
+
+  controller.add_ball_event(0, static_cast<float>(motion.xrel));
+  controller.add_ball_event(1, static_cast<float>(motion.yrel));
+
+  controller.add_pointer_event(0, static_cast<float>(motion.x));
+  controller.add_pointer_event(1, static_cast<float>(motion.y));
+}
+
+void
+InputBindings::dispatch_mouse_wheel_event(SDL_MouseWheelEvent const& wheel, Controller& controller) const
+{
+
 }
 
 void

@@ -113,6 +113,8 @@ public:
   void bind_keyboard_axis(int event, SDL_Scancode minus, SDL_Scancode plus);
 
   void bind_mouse_button(int event, int device, int button);
+  void bind_mouse_motion(int event, int device);
+  void bind_mouse_wheel(int event, int device, int wheel);
 
   void bind_wiimote_button(int event, int device, int button);
   void bind_wiimote_axis(int event, int device, int axis);
@@ -124,6 +126,8 @@ public:
 private:
   void dispatch_key_event(SDL_KeyboardEvent const& key, Controller& controller) const;
   void dispatch_mouse_button_event(SDL_MouseButtonEvent const& button, Controller& controller) const;
+  void dispatch_mouse_motion_event(SDL_MouseMotionEvent const& motion, Controller& controller) const;
+  void dispatch_mouse_wheel_event(SDL_MouseWheelEvent const& wheel, Controller& controller) const;
   void dispatch_joy_button_event(SDL_JoyButtonEvent const& button, Controller& controller) const;
   void dispatch_joy_axis_event(SDL_JoyAxisEvent const& button, Controller& controller) const;
 
