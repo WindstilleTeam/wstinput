@@ -16,8 +16,7 @@
 
 #include "input_bindings.hpp"
 
-#include <iostream>
-
+#include <logmich/log.hpp>
 #include <prio/reader.hpp>
 
 #include "controller_description.hpp"
@@ -50,7 +49,7 @@ InputBindings::load(std::filesystem::path const& filename,
 {
   ReaderDocument doc = ReaderDocument::from_file(filename);
 
-  std::cout << "InputManager: " << filename << std::endl;
+  log_info("InputManager: {}", filename);
 
   if (doc.get_name() != "windstille-controller") {
     std::ostringstream msg;
@@ -103,7 +102,7 @@ InputBindings::load(std::filesystem::path const& filename,
         bind_keyboard_button(controller_description.get_definition(key).id,
                              m_manager.string_to_keyid(key_text));
       } else {
-        std::cout << "InputManagerSDL: Unknown tag: " << button_obj.get_name() << std::endl;
+        log_error("InputManagerSDL: Unknown tag: {}", button_obj.get_name());
       }
     }
     else if (key.ends_with("-axis"))
@@ -149,7 +148,7 @@ InputBindings::load(std::filesystem::path const& filename,
       }
       else
       {
-        std::cout << "InputManagerSDL: Unknown tag: " << axis_obj.get_name() << std::endl;
+        log_error("InputManagerSDL: Unknown tag: {}", axis_obj.get_name());
       }
     }
   }
@@ -170,7 +169,7 @@ InputBindings::bind_mouse_button(int event, int device, int button)
 void
 InputBindings::bind_joystick_hat_axis(int /*event*/, int /*device*/, int /*axis*/)
 {
-  std::cerr << "implement me\n";
+  log_not_implemented();
 }
 
 void
@@ -379,7 +378,7 @@ InputBindings::dispatch_event(SDL_Event const& event, Controller& controller) co
       break;
 
     default:
-      std::cout << "InputManagerSDL: unknown event: " << event.type << std::endl;
+      log_debug("InputManagerSDL: unknown event: ", event.type);
       break;
   }
 }

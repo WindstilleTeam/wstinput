@@ -35,6 +35,9 @@ function(build_dependencies)
   if(NOT TARGET prio)
     add_subdirectory(external/priocpp/ EXCLUDE_FROM_ALL)
   endif()
+  if(NOT TARGET logmich)
+    add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
+  endif()
 endfunction()
 build_dependencies()
 
@@ -55,6 +58,7 @@ target_include_directories(wstinput PUBLIC include/)
 target_include_directories(wstinput PRIVATE src/ include/wstinput/)
 target_link_libraries(wstinput PUBLIC
   prio
+  logmich
   PkgConfig::SDL2)
 
 if(CWIID_LIBRARY)

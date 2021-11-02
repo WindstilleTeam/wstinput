@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#include <iostream>
 #include <sstream>
 
+#include <logmich/log.hpp>
 #include <prio/reader.hpp>
 
 #include "input_manager.hpp"
@@ -35,14 +35,13 @@ InputManagerSDL::InputManagerSDL(ControllerDescription const& controller_descrip
   m_joysticks(),
   m_keyidmapping()
 {
-  std::cout << "Keyboard keys:";
+  log_debug("Keyboard keys:");
   for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
     const char* key_name = SDL_GetScancodeName(static_cast<SDL_Scancode>(i));
     m_keyidmapping[key_name] = static_cast<SDL_Scancode>(i);
     // FIXME: Make the keynames somewhere user visible so that users can use them
-    std::cout << " '" << key_name << "'";
+    log_debug("  {}", key_name);
   }
-  std::cout << std::endl;
 
   stop_text_input();
 
@@ -105,7 +104,7 @@ InputManagerSDL::ensure_open_joystick(int device)
     }
     else
     {
-      std::cout << "InputManagerSDL: Couldn't open joystick device " << device << std::endl;
+      log_error("InputManagerSDL: Couldn't open joystick device: {}", device);
     }
   }
 }
@@ -129,8 +128,6 @@ InputManagerSDL::update(float /*delta*/)
       WiimoteEvent& event = *i;
       if (event.type == WiimoteEvent::WIIMOTE_BUTTON_EVENT)
       {
-        //std::cout << "WiimoteButton: " << event.button.button << " " << event.button.down << std::endl;
-
         for (std::vector<WiimoteButtonBinding>::const_iterator j = m_wiimote_button_bindings.begin();
              j != m_wiimote_button_bindings.end();
              ++j)
@@ -144,8 +141,6 @@ InputManagerSDL::update(float /*delta*/)
       }
       else if (event.type == WiimoteEvent::WIIMOTE_AXIS_EVENT)
       {
-        //std::cout << "WiimoteAxis: " << event.axis.axis << " " << event.axis.pos << std::endl;
-
         for (std::vector<WiimoteAxisBinding>::const_iterator j = m_wiimote_axis_bindings.begin();
              j != m_wiimote_axis_bindings.end();
              ++j)
@@ -179,7 +174,7 @@ InputManagerSDL::update(float /*delta*/)
           add_axis_event(X2_AXIS, math::mid(-1.0f, -float(pitch / M_PI), 1.0f));
           add_axis_event(Y2_AXIS, math::mid(-1.0f, -float(roll  / M_PI), 1.0f));
 
-          std::cout << fmt::format("{:6.3f} {:6.3f}", pitch, roll) << std::endl;
+          log_debug("{:6.3f} {:6.3f}", pitch, roll);
         }
       }
       else

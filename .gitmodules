@@ -4,3 +4,6 @@
 [submodule "external/priocpp"]
 	path = external/priocpp
 	url = https://gitlab.com/grumbel/priocpp.git
+[submodule "external/logmich"]
+	path = external/logmich
+	url = https://gitlab.com/logmich/logmich.git

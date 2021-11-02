@@ -16,7 +16,7 @@
 
 #include "wiimote.hpp"
 
-#include <iostream>
+#include <logmich/log.hpp>
 
 namespace wstinput {
 
@@ -85,13 +85,13 @@ Wiimote::connect()
 
   if (!(m_wiimote = cwiid_connect(&bdaddr, CWIID_FLAG_MESG_IFC)))
   {
-    fprintf(stderr, "Unable to connect to wiimote\n");
+    log_error("Unable to connect to wiimote");
   }
   else
   {
-    std::cout << "Wiimote connected: " << m_wiimote << std::endl;
+    log_debug("Wiimote connected: {}", m_wiimote);
     if (cwiid_set_mesg_callback(m_wiimote, &Wiimote::mesg_callback)) {
-      std::cerr << "Unable to set message callback" << std::endl;
+      log_error("Unable to set message callback");
     }
 
     if (cwiid_command(m_wiimote, CWIID_CMD_RPT_MODE,
@@ -100,7 +100,7 @@ Wiimote::connect()
                       CWIID_RPT_ACC     |
                       CWIID_RPT_BTN))
     {
-      std::cerr << "Wiimote: Error setting report mode" << std::endl;
+      log_error("Wiimote: Error setting report mode");
     }
 
     { // read calibration data
@@ -108,7 +108,7 @@ Wiimote::connect()
 
       if (cwiid_read(m_wiimote, CWIID_RW_EEPROM, 0x16, 7, buf))
       {
-        std::cout << "Wiimote: Unable to retrieve accelerometer calibration" << std::endl;
+        log_error("Wiimote: Unable to retrieve accelerometer calibration");
       }
       else
       {
@@ -123,7 +123,7 @@ Wiimote::connect()
 
       if (cwiid_read(m_wiimote, CWIID_RW_REG | CWIID_RW_DECODE, 0xA40020, 7, buf))
       {
-        std::cout << "Wiimote: Unable to retrieve wiimote accelerometer calibration" << std::endl;
+        log_error("Wiimote: Unable to retrieve wiimote accelerometer calibration");
       }
       else
       {
@@ -136,22 +136,21 @@ Wiimote::connect()
         nunchuk_one.z  = buf[6];
       }
 
-      std::cout << "Wiimote Calibration: "
-                << static_cast<int>(wiimote_zero.x) << ", "
-                << static_cast<int>(wiimote_zero.x) << ", "
-                << static_cast<int>(wiimote_zero.x) << " - "
-                << static_cast<int>(wiimote_one.x) << ", "
-                << static_cast<int>(wiimote_one.x) << ", "
-                << static_cast<int>(wiimote_one.x) << std::endl;
+      log_debug("Wiimote Calibration: {}, {}, {} - {}, {}, {}",
+                static_cast<int>(wiimote_zero.x),
+                static_cast<int>(wiimote_zero.x),
+                static_cast<int>(wiimote_zero.x),
+                static_cast<int>(wiimote_one.x),
+                static_cast<int>(wiimote_one.x),
+                static_cast<int>(wiimote_one.x));
 
-      std::cout << "Nunchuk Calibration: "
-                << static_cast<int>(nunchuk_zero.x) << ", "
-                << static_cast<int>(nunchuk_zero.x) << ", "
-                << static_cast<int>(nunchuk_zero.x) << " - "
-                << static_cast<int>(nunchuk_one.x) << ", "
-                << static_cast<int>(nunchuk_one.x) << ", "
-                << static_cast<int>(nunchuk_one.x) << std::endl;
-
+      log_debug("Nunchuk Calibration: {}, {}, {} - {}, {}, {}",
+                static_cast<int>(nunchuk_zero.x),
+                static_cast<int>(nunchuk_zero.x),
+                static_cast<int>(nunchuk_zero.x),
+                static_cast<int>(nunchuk_one.x),
+                static_cast<int>(nunchuk_one.x),
+                static_cast<int>(nunchuk_one.x));
     }
   }
 }
@@ -171,11 +170,10 @@ Wiimote::set_led(unsigned char led_state)
 {
   if (m_led_state != led_state)
   {
-    //std::cout << "Wiimote: " << static_cast<int>(m_led_state) << std::endl;
     m_led_state = led_state;
 
     if (cwiid_command(m_wiimote, CWIID_CMD_LED, m_led_state)) {
-      fprintf(stderr, "Error setting LEDs \n");
+      log_error("Error setting LEDs");
     }
   }
 }
@@ -202,7 +200,7 @@ Wiimote::set_rumble(bool r)
     m_rumble = r;
 
     if (cwiid_command(m_wiimote, CWIID_CMD_RUMBLE, m_rumble)) {
-      std::cerr << "Error setting rumble" << std::endl;
+      log_error("Error setting rumble");
     }
   }
 }
@@ -210,7 +208,6 @@ Wiimote::set_rumble(bool r)
 void
 Wiimote::add_button_event(int /*device*/, int button, bool down)
 {
-  // std::cout << "Wiimote::add_button_event: " << device << " " << button << " " << down << std::endl;
   WiimoteEvent event;
 
   event.type = WiimoteEvent::WIIMOTE_BUTTON_EVENT;
@@ -224,8 +221,6 @@ Wiimote::add_button_event(int /*device*/, int button, bool down)
 void
 Wiimote::add_axis_event(int /*device*/, int axis, float pos)
 {
-  //std::cout << "Wiimote::add_axis_event: " << device << " " << axis << " " << pos << std::endl;
-
   WiimoteEvent event;
 
   event.type = WiimoteEvent::WIIMOTE_AXIS_EVENT;
@@ -280,13 +275,13 @@ Wiimote::on_status(const cwiid_status_mesg& msg)
 void
 Wiimote::on_error(const cwiid_error_mesg& /*msg*/)
 {
-  std::cout << "On Error" << std::endl;
+  log_error("On Error");
 
   if (m_wiimote)
   {
     if (cwiid_disconnect(m_wiimote))
     {
-      fprintf(stderr, "Error on wiimote disconnect\n");
+      log_error("Error on wiimote disconnect");
       m_wiimote = 0;
     }
   }
@@ -442,7 +437,6 @@ Wiimote::mesg(cwiid_wiimote_t* /*w*/, int mesg_count, union cwiid_mesg msg[])
 {
   pthread_mutex_lock(&mutex);
 
-  //std::cout << "StatusCallback: " << w << " " << mesg_count << std::endl;
   for (int i=0; i < mesg_count; i++)
   {
     switch (msg[i].type)
