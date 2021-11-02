@@ -44,7 +44,7 @@ ControllerDescription::add_button(const std::string& name, int id)
 }
 
 void
-ControllerDescription::add_ball  (const std::string& name, int id)
+ControllerDescription::add_ball(const std::string& name, int id)
 {
   InputEventDefinition event;
 
@@ -57,7 +57,7 @@ ControllerDescription::add_ball  (const std::string& name, int id)
 }
 
 void
-ControllerDescription::add_axis  (const std::string& name, int id)
+ControllerDescription::add_axis(const std::string& name, int id)
 {
   InputEventDefinition event;
 

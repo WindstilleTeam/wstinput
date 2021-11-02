@@ -40,9 +40,9 @@ public:
   Controller(size_t size = 0);
 
   float get_trigger_state(int name) const;
-  float get_axis_state  (int name, bool use_deadzone = true) const;
+  float get_axis_state(int name, bool use_deadzone = true) const;
   bool get_button_state(int name) const;
-  float get_ball_state  (int name) const;
+  float get_ball_state(int name) const;
 
   InputEventLst const& get_events() const;
 
@@ -58,9 +58,9 @@ public:
       pushed the axis down */
   bool axis_was_pressed_down(int name) const;
 
-  void set_axis_state  (int name, float pos);
+  void set_axis_state(int name, float pos);
   void set_button_state(int name, bool down);
-  void set_ball_state  (int name, float delta);
+  void set_ball_state(int name, float delta);
 
   void add_axis_event(int name, float pos);
   void add_ball_event(int name, float pos);

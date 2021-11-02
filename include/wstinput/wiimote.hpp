@@ -114,13 +114,13 @@ public:
   bool is_connected() const { return m_wiimote != 0; }
 
   // Callback functions
-  void on_status  (const cwiid_status_mesg& msg);
-  void on_error   (const cwiid_error_mesg& msg);
-  void on_button  (const cwiid_btn_mesg& msg);
-  void on_acc     (const cwiid_acc_mesg& msg);
-  void on_ir      (const cwiid_ir_mesg& msg);
+  void on_status(const cwiid_status_mesg& msg);
+  void on_error(const cwiid_error_mesg& msg);
+  void on_button(const cwiid_btn_mesg& msg);
+  void on_acc(const cwiid_acc_mesg& msg);
+  void on_ir(const cwiid_ir_mesg& msg);
   void on_nunchuck(const cwiid_nunchuk_mesg& msg);
-  void on_classic (const cwiid_classic_mesg& msg);
+  void on_classic(const cwiid_classic_mesg& msg);
 
   void mesg(cwiid_wiimote_t*, int mesg_count, union cwiid_mesg mesg[]);
   void err(cwiid_wiimote_t*, const char *s, va_list ap);
