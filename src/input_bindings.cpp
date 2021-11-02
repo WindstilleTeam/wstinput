@@ -354,8 +354,32 @@ InputBindings::dispatch_event(SDL_Event const& event, Controller& controller) co
       dispatch_joy_button_event(event.jbutton, controller);
       break;
 
+    case SDL_QUIT:
+    case SDL_WINDOWEVENT:
+    case SDL_SYSWMEVENT:
+    case SDL_KEYMAPCHANGED:
+    case SDL_JOYDEVICEADDED:
+    case SDL_JOYDEVICEREMOVED:
+    case SDL_CONTROLLERDEVICEREMOVED:
+    case SDL_CONTROLLERDEVICEREMAPPED:
+    case SDL_CONTROLLERAXISMOTION:
+    case SDL_CONTROLLERBUTTONUP:
+    case SDL_CONTROLLERBUTTONDOWN:
+    case SDL_CONTROLLERDEVICEADDED:
+    case SDL_CLIPBOARDUPDATE:
+    case SDL_DROPFILE:
+    case SDL_DROPTEXT:
+    case SDL_DROPBEGIN:
+    case SDL_DROPCOMPLETE:
+    case SDL_AUDIODEVICEADDED:
+    case SDL_AUDIODEVICEREMOVED:
+    case SDL_RENDER_TARGETS_RESET:
+    case SDL_RENDER_DEVICE_RESET:
+    case SDL_USEREVENT:
+      break;
+
     default:
-      std::cout << "InputManagerSDL: unknown event" << std::endl;
+      std::cout << "InputManagerSDL: unknown event: " << event.type << std::endl;
       break;
   }
 }
