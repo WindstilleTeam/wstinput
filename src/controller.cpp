@@ -143,9 +143,6 @@ void
 Controller::clear()
 {
   m_events.clear();
-  // FIXME: EVIL HARDCODE
-  m_states[0].ball = 0;
-  m_states[1].ball = 0;
 }
 
 void

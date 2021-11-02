@@ -38,6 +38,8 @@ InputBindings::InputBindings(InputManagerSDL& manager) :
   m_keyboard_button_bindings(),
   m_keyboard_axis_bindings(),
   m_mouse_button_bindings(),
+  m_mouse_motion_bindings(),
+  m_mouse_motion_ball_bindings(),
   m_wiimote_button_bindings(),
   m_wiimote_axis_bindings()
 {
@@ -164,6 +166,30 @@ InputBindings::bind_mouse_button(int event, int device, int button)
   binding.button = button;
 
   m_mouse_button_bindings.push_back(binding);
+}
+
+void
+InputBindings::bind_mouse_motion(int event, int device, int axis)
+{
+  MouseMotionBinding binding;
+
+  binding.event  = event;
+  binding.device = device;
+  binding.axis = axis;
+
+  m_mouse_motion_bindings.push_back(binding);
+}
+
+void
+InputBindings::bind_mouse_motion_ball(int event, int device, int axis)
+{
+  MouseMotionBallBinding binding;
+
+  binding.event  = event;
+  binding.device = device;
+  binding.axis = axis;
+
+  m_mouse_motion_ball_bindings.push_back(binding);
 }
 
 void
@@ -441,14 +467,30 @@ InputBindings::dispatch_mouse_button_event(const SDL_MouseButtonEvent& button, C
 void
 InputBindings::dispatch_mouse_motion_event(SDL_MouseMotionEvent const& motion, Controller& controller) const
 {
-  // FIXME: Hardcodes 0,1 values are not a good idea, need to bind the stuff like the rest
-  if ((false)) std::cout << "mouse: " << motion.xrel << " " << motion.yrel << std::endl;
+  for (MouseMotionBinding const& binding : m_mouse_motion_bindings)
+  {
+    if (static_cast<int>(motion.which) == binding.device)
+    {
+      if (binding.axis == 0) {
+        controller.add_pointer_event(binding.event, static_cast<float>(motion.x));
+      } else if (binding.axis == 1) {
+        controller.add_pointer_event(binding.event, static_cast<float>(motion.y));
+      } else {
+        log_error("unknown axis in binding: {}", binding.axis);
+      }
+    }
+  }
 
-  controller.add_ball_event(0, static_cast<float>(motion.xrel));
-  controller.add_ball_event(1, static_cast<float>(motion.yrel));
-
-  controller.add_pointer_event(0, static_cast<float>(motion.x));
-  controller.add_pointer_event(1, static_cast<float>(motion.y));
+  for (MouseMotionBallBinding const& binding : m_mouse_motion_ball_bindings)
+  {
+    if (binding.axis == 0) {
+      controller.add_ball_event(binding.event, static_cast<float>(motion.xrel));
+    } else if (binding.axis == 1) {
+      controller.add_ball_event(binding.event, static_cast<float>(motion.yrel));
+    } else {
+      log_error("unknown axis in binding: {}", binding.axis);
+    }
+  }
 }
 
 void

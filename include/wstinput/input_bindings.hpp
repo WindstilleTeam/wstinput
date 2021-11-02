@@ -66,6 +66,20 @@ struct MouseButtonBinding
   int button;
 };
 
+struct MouseMotionBinding
+{
+  int event;
+  int device;
+  int axis;
+};
+
+struct MouseMotionBallBinding
+{
+  int event;
+  int device;
+  int axis;
+};
+
 struct KeyboardButtonBinding
 {
   int event;
@@ -113,7 +127,8 @@ public:
   void bind_keyboard_axis(int event, SDL_Scancode minus, SDL_Scancode plus);
 
   void bind_mouse_button(int event, int device, int button);
-  void bind_mouse_motion(int event, int device);
+  void bind_mouse_motion(int event, int device, int axis);
+  void bind_mouse_motion_ball(int event, int device, int axis);
   void bind_mouse_wheel(int event, int device, int wheel);
 
   void bind_wiimote_button(int event, int device, int button);
@@ -143,6 +158,8 @@ private:
   std::vector<KeyboardAxisBinding>   m_keyboard_axis_bindings;
 
   std::vector<MouseButtonBinding>   m_mouse_button_bindings;
+  std::vector<MouseMotionBinding>   m_mouse_motion_bindings;
+  std::vector<MouseMotionBallBinding>   m_mouse_motion_ball_bindings;
 
   std::vector<WiimoteButtonBinding> m_wiimote_button_bindings;
   std::vector<WiimoteAxisBinding>   m_wiimote_axis_bindings;
