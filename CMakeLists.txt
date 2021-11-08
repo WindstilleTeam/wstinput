@@ -17,7 +17,10 @@
 cmake_minimum_required(VERSION 3.15)
 project(wstinput VERSION 0.3.0)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/)
+set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
+find_package(tinycmmc CONFIG)
+message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
+list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 
 include(GNUInstallDirs)
 include(ClangTidy)
@@ -32,9 +35,13 @@ find_library(CWIID_LIBRARY cwiid)
 function(build_dependencies)
   # set(BUILD_TESTS OFF)
   # set(BUILD_EXTRA OFF)
+
+  find_package(priocpp QUIET)
   if(NOT TARGET prio)
     add_subdirectory(external/priocpp/ EXCLUDE_FROM_ALL)
   endif()
+
+  find_package(logmich QUIET)
   if(NOT TARGET logmich)
     add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
   endif()
@@ -54,7 +61,9 @@ set_target_properties(wstinput PROPERTIES
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF)
 target_include_directories(wstinput SYSTEM PUBLIC ${OPENAL_INCLUDE_DIR})
-target_include_directories(wstinput PUBLIC include/)
+target_include_directories(wstinput PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 target_include_directories(wstinput PRIVATE src/ include/wstinput/)
 target_link_libraries(wstinput PUBLIC
   prio
@@ -67,7 +76,20 @@ if(CWIID_LIBRARY)
 endif()
 
 install(TARGETS wstinput
+  EXPORT wstinput-targets
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+
+# CMake integration
+configure_file(wstinput-config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-config.cmake" @ONLY)
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-config.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/wstinput/")
+export(TARGETS wstinput
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-targets.cmake")
+export(PACKAGE wstinput)
+install(EXPORT wstinput-targets
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/wstinput/")
 
 # EOF #
