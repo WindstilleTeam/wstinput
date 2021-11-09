@@ -3,10 +3,26 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+    nix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+
     tinycmmc.url = "gitlab:grumbel/cmake-modules";
+    tinycmmc.inputs.nix.follows = "nix";
+    tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
+    tinycmmc.inputs.flake-utils.follows = "flake-utils";
+
     logmich.url = "gitlab:logmich/logmich";
+    logmich.inputs.nix.follows = "nix";
+    logmich.inputs.nixpkgs.follows = "nixpkgs";
+    logmich.inputs.flake-utils.follows = "flake-utils";
+    logmich.inputs.tinycmmc.follows = "tinycmmc";
+
     priocpp.url = "gitlab:grumbel/priocpp";
+    priocpp.inputs.nix.follows = "nix";
+    priocpp.inputs.nixpkgs.follows = "nixpkgs";
+    priocpp.inputs.flake-utils.follows = "flake-utils";
+    priocpp.inputs.tinycmmc.follows = "tinycmmc";
+    priocpp.inputs.logmich.follows = "logmich";
   };
 
   outputs = { self, nix, nixpkgs, flake-utils, tinycmmc, logmich, priocpp }:
