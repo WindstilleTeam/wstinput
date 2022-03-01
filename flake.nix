@@ -2,30 +2,32 @@
   description = "Windstille Input Engine";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
-    nix.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.url = "github:numtide/flake-utils";
 
     tinycmmc.url = "gitlab:grumbel/cmake-modules";
-    tinycmmc.inputs.nix.follows = "nix";
     tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
     tinycmmc.inputs.flake-utils.follows = "flake-utils";
 
     logmich.url = "gitlab:logmich/logmich";
-    logmich.inputs.nix.follows = "nix";
     logmich.inputs.nixpkgs.follows = "nixpkgs";
     logmich.inputs.flake-utils.follows = "flake-utils";
     logmich.inputs.tinycmmc.follows = "tinycmmc";
 
     priocpp.url = "gitlab:grumbel/priocpp";
-    priocpp.inputs.nix.follows = "nix";
     priocpp.inputs.nixpkgs.follows = "nixpkgs";
     priocpp.inputs.flake-utils.follows = "flake-utils";
     priocpp.inputs.tinycmmc.follows = "tinycmmc";
     priocpp.inputs.logmich.follows = "logmich";
+    priocpp.inputs.sexpcpp.follows = "sexpcpp";
+
+    sexpcpp.url = "gitlab:lispparser/sexp-cpp";
+    sexpcpp.inputs.nixpkgs.follows = "nixpkgs";
+    sexpcpp.inputs.flake-utils.follows = "flake-utils";
+    sexpcpp.inputs.tinycmmc.follows = "tinycmmc";
   };
 
-  outputs = { self, nix, nixpkgs, flake-utils, tinycmmc, logmich, priocpp }:
+  outputs = { self, nixpkgs, flake-utils, tinycmmc, logmich, priocpp, sexpcpp }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
