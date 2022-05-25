@@ -75,21 +75,6 @@ if(CWIID_LIBRARY)
   target_link_libraries(wstinput ${CWIID_LIBRARY})
 endif()
 
-install(TARGETS wstinput
-  EXPORT wstinput-targets
-  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-  PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
-
-# CMake integration
-configure_file(wstinput-config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-config.cmake" @ONLY)
-install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-config.cmake"
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/wstinput/")
-export(TARGETS wstinput
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/wstinput-targets.cmake")
-export(PACKAGE wstinput)
-install(EXPORT wstinput-targets
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/wstinput/")
+include(ExportAndInstallLibrary)
 
 # EOF #
