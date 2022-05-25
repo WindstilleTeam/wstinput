@@ -35,20 +35,18 @@
         packages = flake-utils.lib.flattenTree {
           wstinput = pkgs.stdenv.mkDerivation {
             pname = "wstinput";
-            version = "0.0.0";
+            version = "0.3.0";
             src = nixpkgs.lib.cleanSource ./.;
             nativeBuildInputs = [
-              pkgs.cmake
-              pkgs.ninja
-              pkgs.gcc
-              pkgs.pkgconfig
               tinycmmc.defaultPackage.${system}
+
+              pkgs.cmake
+              pkgs.pkgconfig
             ];
-            buildInputs = [
+            propagatedBuildInputs = [
               logmich.defaultPackage.${system}
               priocpp.defaultPackage.${system}
-              pkgs.glm
-              pkgs.jsoncpp
+              sexpcpp.defaultPackage.${system}
 
               pkgs.SDL2
             ];
