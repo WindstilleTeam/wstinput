@@ -2,11 +2,11 @@
   "nodes": {
     "flake-utils": {
       "locked": {
-        "lastModified": 1652776076,
-        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "lastModified": 1653893745,
+        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
         "type": "github"
       },
       "original": {
@@ -28,31 +28,31 @@
         ]
       },
       "locked": {
-        "lastModified": 1653479858,
-        "narHash": "sha256-03byGgsDLaThJKrJhTvfX3+L4d9/sH9n4kgimDBy1/4=",
+        "lastModified": 1653991001,
+        "narHash": "sha256-JWlI7nJykeXPkeq4zdUOvcScMnp386UW3tyRQgkxMtk=",
         "owner": "logmich",
         "repo": "logmich",
-        "rev": "9f61ee15a10880c8594645139b87a681934b5ccc",
-        "type": "gitlab"
+        "rev": "866b33191bc9378191519b0342ebb1da66142ac2",
+        "type": "github"
       },
       "original": {
         "owner": "logmich",
         "repo": "logmich",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1653087707,
-        "narHash": "sha256-zfno3snrzZTWQ2B7K53QHrGZwrjnJLTRPalymrSsziU=",
+        "lastModified": 1653920503,
+        "narHash": "sha256-BBeCZwZImtjP3oYy4WogkQYy5OxNyfNciVSc1AfZgLQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "cbd40c72b2603ab54e7208f99f9b35fc158bc009",
+        "rev": "a634c8f6c1fbf9b9730e01764999666f3436f10a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-21.11",
+        "ref": "nixos-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -76,17 +76,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1653481128,
-        "narHash": "sha256-Uigk7ih3sb6WkTW2L2u9MabffOnC4nIvBhHtACxrQhM=",
+        "lastModified": 1654008717,
+        "narHash": "sha256-KJFTHb9G3YQ+/lqWwl1tUHMQUGDju6Ly7geEag9ICIE=",
         "owner": "grumbel",
         "repo": "priocpp",
-        "rev": "a6ea6f6a40396de9169c7affdcf95af6cb438be5",
-        "type": "gitlab"
+        "rev": "545b8d93d7b9596d2afd2266818dd1dcaac18705",
+        "type": "github"
       },
       "original": {
         "owner": "grumbel",
         "repo": "priocpp",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "root": {
@@ -112,17 +112,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1653481214,
-        "narHash": "sha256-XS4cch1m0A2Wal0PieGC4OKzOozmbSnvPccxli6x0hA=",
+        "lastModified": 1654007251,
+        "narHash": "sha256-DFdDwY03pXbpsdHyTWsVS+MMQbGJsuOVGmBHc2/MuwU=",
         "owner": "lispparser",
         "repo": "sexp-cpp",
-        "rev": "6810961ea2c3b55d7deedcfb4c9ba0ca48529b78",
-        "type": "gitlab"
+        "rev": "4b4e4518af0c6f9b7b92d7e393d2919eec357b9b",
+        "type": "github"
       },
       "original": {
         "owner": "lispparser",
         "repo": "sexp-cpp",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "tinycmmc": {
@@ -135,17 +135,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1653482755,
-        "narHash": "sha256-DeDWi5PpGRj14FByJhQvfzQ77po/y7QAYd5dmVY1TaM=",
+        "lastModified": 1654000716,
+        "narHash": "sha256-aCfXSXWVki7moiSR/oFaZRnRdO/5jhZbJ39jEI8fi5I=",
         "owner": "grumbel",
-        "repo": "cmake-modules",
-        "rev": "2e80227395c6bccd215a5cf35872b86927ec5cec",
-        "type": "gitlab"
+        "repo": "tinycmmc",
+        "rev": "22c77404937829f4b2da539c6c2e0e99545440e8",
+        "type": "github"
       },
       "original": {
         "owner": "grumbel",
-        "repo": "cmake-modules",
-        "type": "gitlab"
+        "repo": "tinycmmc",
+        "type": "github"
       }
     }
   },
