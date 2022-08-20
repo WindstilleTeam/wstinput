@@ -17,14 +17,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(wstinput VERSION 0.3.0)
 
-set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/tinycmmc/modules/")
-find_package(tinycmmc CONFIG)
-message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
-list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
-
-include(GNUInstallDirs)
-include(ClangTidy)
-include(MaximumWarnings)
+include(mk/cmake/TinyCMMC.cmake)
 
 find_package(PkgConfig REQUIRED)
 pkg_search_module(SDL2 REQUIRED sdl2 IMPORTED_TARGET)
@@ -33,18 +26,8 @@ find_library(CWIID_LIBRARY cwiid)
 
 # Build dependencies
 function(build_dependencies)
-  # set(BUILD_TESTS OFF)
-  # set(BUILD_EXTRA OFF)
-
-  find_package(prio)
-  if(NOT TARGET prio::prio)
-    add_subdirectory(external/priocpp/ EXCLUDE_FROM_ALL)
-  endif()
-
-  find_package(logmich)
-  if(NOT TARGET logmich::logmich)
-    add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
-  endif()
+  tinycmmc_find_dependency(logmich)
+  tinycmmc_find_dependency(prio)
 endfunction()
 build_dependencies()
 
@@ -55,11 +38,7 @@ file(GLOB WSTINPUT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 add_library(wstinput STATIC ${WSTINPUT_SOURCES})
 set_target_properties(wstinput PROPERTIES PUBLIC_HEADER "${WSTINPUT_HEADERS}")
-target_compile_options(wstinput PUBLIC ${WARNINGS_CXX_FLAGS})
-set_target_properties(wstinput PROPERTIES
-  CXX_STANDARD 20
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF)
+target_compile_options(wstinput PUBLIC ${TINYCMMC_WARNINGS_CXX_FLAGS})
 target_include_directories(wstinput SYSTEM PUBLIC ${OPENAL_INCLUDE_DIR})
 target_include_directories(wstinput PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -75,6 +54,6 @@ if(CWIID_LIBRARY)
   target_link_libraries(wstinput ${CWIID_LIBRARY})
 endif()
 
-include(ExportAndInstallLibrary)
+tinycmmc_export_and_install_library(wstinput)
 
 # EOF #
