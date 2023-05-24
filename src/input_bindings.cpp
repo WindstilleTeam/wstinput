@@ -16,6 +16,8 @@
 
 #include "input_bindings.hpp"
 
+#include <algorithm>
+
 #include <logmich/log.hpp>
 #include <prio/reader.hpp>
 
