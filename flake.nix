@@ -2,7 +2,7 @@
   description = "Windstille Input Engine";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-24.05";
 
     tinycmmc.url = "github:grumbel/tinycmmc";
     tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +46,7 @@
               tinycmmc.packages.${pkgs.system}.default
 
               pkgs.buildPackages.cmake
-              pkgs.buildPackages.pkgconfig
+              pkgs.buildPackages.pkg-config
             ];
 
             propagatedBuildInputs = [
