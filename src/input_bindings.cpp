@@ -53,7 +53,7 @@ InputBindings::load(std::filesystem::path const& filename,
 {
   ReaderDocument doc = ReaderDocument::from_file(filename);
 
-  log_info("InputManager: {}", filename);
+  log_info("InputManager: {}", filename.string());
 
   if (doc.get_name() != "windstille-controller") {
     std::ostringstream msg;
