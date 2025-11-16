@@ -79,16 +79,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754689972,
-        "narHash": "sha256-eogqv6FqZXHgqrbZzHnq43GalnRbLTkbBbFtEfm1RSc=",
+        "lastModified": 1762977756,
+        "narHash": "sha256-4PqRErxfe+2toFJFgcRKZ0UI9NSIOJa+7RXVtBhy4KE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fc756aa6f5d3e2e5666efcf865d190701fef150a",
+        "rev": "c5ae371f1a6a7fd27823bc500d9390b38c05fa55",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -112,11 +112,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753121041,
-        "narHash": "sha256-2qAy2ulVnfwReNIbuWO2Gb9uNt3ugjjBFt7ERkZPUxU=",
+        "lastModified": 1763252804,
+        "narHash": "sha256-no1LJTJ/I/DcEQNAUYZprXao3x9t9J7RyzE/CW6xgcc=",
         "owner": "grumbel",
         "repo": "priocpp",
-        "rev": "b2664449adcaed93f609e3ea1fb68f8295390ce9",
+        "rev": "6db88ccf699ad09b9ff8233804e605dbef56dedd",
         "type": "github"
       },
       "original": {
@@ -149,11 +149,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753120376,
-        "narHash": "sha256-/wH9Cgo+4eyYRyUcYRNkYR38rLRv/mJq87dpE9wCPlw=",
+        "lastModified": 1763252698,
+        "narHash": "sha256-MLSebs2kU/ejWhnz/oOZr6FfiPUqFX1G4dFNJT7bg6A=",
         "owner": "lispparser",
         "repo": "sexp-cpp",
-        "rev": "677b6f3ecd54e92339d33062084b081ebb9f14a6",
+        "rev": "1a591d33df73cbd0cd966c2621f759797f9fdd9b",
         "type": "github"
       },
       "original": {
@@ -187,11 +187,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753119823,
-        "narHash": "sha256-TFqpaK7Wvo2YSVihBfwWu1hlZId7W1RQnXArXnS29AI=",
+        "lastModified": 1762385311,
+        "narHash": "sha256-B3XPPjn9S1YpIZmHyBBbXwaP0JVKBhYvCmNt6oauj+M=",
         "owner": "grumbel",
         "repo": "tinycmmc",
-        "rev": "caf1af301e388e97dca31ee7fdc12f17cff34f82",
+        "rev": "2ad2d2ab7dce012bb1c9d1dbb8bdb5abd9232ecd",
         "type": "github"
       },
       "original": {
