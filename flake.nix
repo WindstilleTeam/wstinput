@@ -43,19 +43,19 @@
             src = nixpkgs.lib.cleanSource ./.;
 
             nativeBuildInputs = [
-              tinycmmc.packages.${pkgs.system}.default
+              tinycmmc.packages.${pkgs.stdenv.hostPlatform.system}.default
 
               pkgs.buildPackages.cmake
               pkgs.buildPackages.pkg-config
             ];
 
             propagatedBuildInputs = [
-              logmich.packages.${pkgs.system}.default
-              priocpp.packages.${pkgs.system}.default
-              sexpcpp.packages.${pkgs.system}.default
+              logmich.packages.${pkgs.stdenv.hostPlatform.system}.default
+              priocpp.packages.${pkgs.stdenv.hostPlatform.system}.default
+              sexpcpp.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-              (if pkgs.targetPlatform.isWindows
-               then SDL2-win32.packages.${pkgs.system}.default
+              (if pkgs.stdenv.targetPlatform.isWindows
+               then SDL2-win32.packages.${pkgs.stdenv.hostPlatform.system}.default
                else pkgs.SDL2)
             ];
            };
