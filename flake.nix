@@ -4,27 +4,27 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    tinycmmc.url = "github:grumbel/tinycmmc";
+    tinycmmc.url = "git+https://github.com/grumbel/tinycmmc.git";
     tinycmmc.inputs.nixpkgs.follows = "nixpkgs";
     tinycmmc.inputs.flake-utils.follows = "flake-utils";
 
-    logmich.url = "github:logmich/logmich";
+    logmich.url = "git+https://github.com/logmich/logmich.git";
     logmich.inputs.nixpkgs.follows = "nixpkgs";
     logmich.inputs.tinycmmc.follows = "tinycmmc";
 
-    priocpp.url = "github:grumbel/priocpp";
+    priocpp.url = "git+https://github.com/grumbel/priocpp.git";
     priocpp.inputs.nixpkgs.follows = "nixpkgs";
     priocpp.inputs.flake-utils.follows = "flake-utils";
     priocpp.inputs.tinycmmc.follows = "tinycmmc";
     priocpp.inputs.logmich.follows = "logmich";
     priocpp.inputs.sexpcpp.follows = "sexpcpp";
 
-    sexpcpp.url = "github:lispparser/sexp-cpp";
+    sexpcpp.url = "git+https://github.com/lispparser/sexp-cpp.git";
     sexpcpp.inputs.nixpkgs.follows = "nixpkgs";
     sexpcpp.inputs.flake-utils.follows = "flake-utils";
     sexpcpp.inputs.tinycmmc.follows = "tinycmmc";
 
-    SDL2-win32.url = "github:grumnix/SDL2-win32";
+    SDL2-win32.url = "git+https://github.com/grumnix/SDL2-win32.git";
     SDL2-win32.inputs.nixpkgs.follows = "nixpkgs";
     SDL2-win32.inputs.tinycmmc.follows = "tinycmmc";
   };
@@ -54,7 +54,7 @@
               priocpp.packages.${pkgs.stdenv.hostPlatform.system}.default
               sexpcpp.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-              (if pkgs.stdenv.targetPlatform.isWindows
+              (if pkgs.stdenv.hostPlatform.isWindows
                then SDL2-win32.packages.${pkgs.stdenv.hostPlatform.system}.default
                else pkgs.SDL2)
             ];
