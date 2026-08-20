@@ -5,9 +5,6 @@
         "SDL2_src": "SDL2_src",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
@@ -58,9 +55,6 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
@@ -106,9 +100,6 @@
         ],
         "sexpcpp": [
           "sexpcpp"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
@@ -132,8 +123,7 @@
         "logmich": "logmich",
         "nixpkgs": "nixpkgs",
         "priocpp": "priocpp",
-        "sexpcpp": "sexpcpp",
-        "tinycmmc": "tinycmmc"
+        "sexpcpp": "sexpcpp"
       }
     },
     "sexpcpp": {
@@ -143,9 +133,6 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
@@ -175,29 +162,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "tinycmmc": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1763256011,
-        "narHash": "sha256-CpQWAHdeLUYd28cT9heG05p6RX9WF7QslqNHoBi931E=",
-        "ref": "refs/heads/master",
-        "rev": "2e007ba059a4991c011a7193c9d7df28826c9adc",
-        "revCount": 64,
-        "type": "git",
-        "url": "https://github.com/grumbel/tinycmmc.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://github.com/grumbel/tinycmmc.git"
       }
     }
   },
